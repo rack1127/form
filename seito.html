@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>情報登録フォーム</title>
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+</head>
+<body>
+<form id="form">
+<h1>生徒</h1>
+<!-- <label for syurui>分類:</label>
+<select name="分類" id = syurui>
+<option value="ippan">一般</option>
+<option value="seito">生徒</option>
+<option value="hogosyaS">生徒保護者</option> -->
+</select><br>
+氏名：<input type="text" name="yourname" id="name"><br>
+学籍番号：<input type="tell"name="schoolnumber"id="school"><br>
+電話番号：<input type="tell" name="phonenumber"id="phone"><br>
+<button type="button" onclick="showMessage()"value="ボタン">作成</button>
+</form>
+<p id="output-message"></p>
+  <script language="javascript" type="text/javascript">
+    const showMessage = () => {
+        const form = document.forms[0].elements;
+        console.log(form.yourname.value);
+        console.log(form.schoolnumber.value);
+        console.log(form.phonenumber.value);
+        list = [form.yourname.value,
+                form.schoolnumber.value,
+                form.phonenumber.value];
+        console.log(list);
+        var qrcode = new QRCode("qrcode", {
+            text: list.join(),
+            width: 128,
+            height: 128,
+            colorDark : "#000000",
+            colorLight : "#ffffff",
+            correctLevel : QRCode.CorrectLevel.H
+        });
+        // var qrcode = new QRCode(document.getElementById('qrcode'), {
+        //     text: list,
+        //     width: 128,
+        //     height: 128
+        // });
+        //   const inputValue = textbox.value;
+        //   const output = "入力された内容は「" + inputValue + "」です。";
+        //   document.getElementById("output-message").innerHTML = output;
+    }
+</script>
+<div id="qrcode"></div>
+</body>
+</html>
