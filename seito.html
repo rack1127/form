@@ -4,7 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>情報登録フォーム</title>
-    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.js"></script>
+    <script
+        src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+        crossorigin="anonymous"></script>
+    <script src=https://cdnjs.cloudflare.com/ajax/libs/encoding-japanese/2.0.0/encoding.js></script>
 </head>
 <body>
 <form id="form">
@@ -13,42 +18,30 @@
 <select name="分類" id = syurui>
 <option value="ippan">一般</option>
 <option value="seito">生徒</option>
-<option value="hogosyaS">生徒保護者</option> -->
-</select><br>
+<option value="hogosyaS">生徒保護者</option>
+</select><br> -->
 氏名：<input type="text" name="yourname" id="name"><br>
 学籍番号：<input type="tell"name="schoolnumber"id="school"><br>
 電話番号：<input type="tell" name="phonenumber"id="phone"><br>
 <button type="button" onclick="showMessage()"value="ボタン">作成</button>
 </form>
 <p id="output-message"></p>
-  <script language="javascript" type="text/javascript">
+<canvas id="qrcode"></canvas>
+<script language="javascript" type="text/javascript">
     const showMessage = () => {
+    list = $('form').serializeArray();
+    console.log(list);
         const form = document.forms[0].elements;
-        console.log(form.yourname.value);
-        console.log(form.schoolnumber.value);
-        console.log(form.phonenumber.value);
-        list = [form.yourname.value,
-                form.schoolnumber.value,
-                form.phonenumber.value];
-        console.log(list);
-        var qrcode = new QRCode("qrcode", {
-            text: list.join(),
-            width: 128,
-            height: 128,
-            colorDark : "#000000",
-            colorLight : "#ffffff",
-            correctLevel : QRCode.CorrectLevel.H
+        var qr = new QRious({
+            element: document.getElementById("qrcode"),
+            value: "text"
         });
-        // var qrcode = new QRCode(document.getElementById('qrcode'), {
-        //     text: list,
-        //     width: 128,
-        //     height: 128
-        // });
-        //   const inputValue = textbox.value;
-        //   const output = "入力された内容は「" + inputValue + "」です。";
-        //   document.getElementById("output-message").innerHTML = output;
+    }
+    const parseJson = (form) => {
+        var returnJson = {}
+        form.map((data) => returnJson[deta.name] = Encoding.convert(date.value, 'SJIS'))
+        return returnJson
     }
 </script>
-<div id="qrcode"></div>
 </body>
 </html>
