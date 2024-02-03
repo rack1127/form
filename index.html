@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
     <title>情報登録フォーム</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.js"></script>
     <script
         src="https://code.jquery.com/jquery-3.7.1.js"
         integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
         crossorigin="anonymous"></script>
-    <script src=https://cdnjs.cloudflare.com/ajax/libs/encoding-japanese/2.0.0/encoding.js></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/encoding-japanese/2.0.0/encoding.js" integrity="sha512-vaCo7tf//3zOfbhMkG2cwdcR4XGe8V6V9UEqLYaZ02WcW0QioesBenI0awCRCNVZqAo34uG3gUGxkOCoIjJYVQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
 <form id="form">
@@ -29,17 +28,18 @@
 <canvas id="qrcode"></canvas>
 <script language="javascript" type="text/javascript">
     const showMessage = () => {
-    list = $('form').serializeArray();
-    console.log(list);
-        const form = document.forms[0].elements;
+        list = $('form').serializeArray();
+        list = JSON.stringify(parseJson(list))
+        console.log(list);
+        // const form = document.forms[0].elements;
         var qr = new QRious({
             element: document.getElementById("qrcode"),
-            value: "text"
+            value: list
         });
     }
     const parseJson = (form) => {
         var returnJson = {}
-        form.map((data) => returnJson[deta.name] = Encoding.convert(date.value, 'SJIS'))
+        form.map((list) => returnJson[list.name] = Encoding.convert(list.value, 'SJIS'))
         return returnJson
     }
 </script>

@@ -1,20 +1,2 @@
-{
-    "type": "ippan",
-    "name": "田中太郎",
-    "schoolnumber": "2000",
-    "phonenumver": "01234567891"
-}
-{
-    "name": "yourname",
-    "value": "a"
-}
-{
-    "name": "schoolnumber",
-    "value": "b"
-}
-{
-    "name": "phonenumber",
-    "value": "c"
-}
-
+{"yourname":"田中太郎","schoolnumber":"2500","phonenumber":"08040514187"}
 
