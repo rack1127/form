@@ -41,7 +41,7 @@ def capture():
 
                 # 値が空でなく、かつ、ひとつ前のデータ同じではないとき
                 if value != "" and value != tmp:
-                    play_mp3('test.mp3')
+                    play_mp3('read.mp3')
                     # データを一時保管
                     tmp = value
                     to_csv(value)
