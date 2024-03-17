@@ -1,8 +1,15 @@
+import os
+import sys
 import pygame
 import csv
 import json
 import cv2
 from pyzbar.pyzbar import decode
+
+def resource_path(relative_path):
+    if hasattr(sys, '_MEIPASS'):
+        return os.path.join(sys._MEIPASS, relative_path)
+    return os.path.join(os.path.abspath("."), relative_path)
 
 def play_mp3(filename):
     pygame.mixer.init()
@@ -41,7 +48,7 @@ def capture():
 
                 # 値が空でなく、かつ、ひとつ前のデータ同じではないとき
                 if value != "" and value != tmp:
-                    play_mp3('read.mp3')
+                    play_mp3(resource_path("read.mp3"))
                     # データを一時保管
                     tmp = value
                     to_csv(value)
