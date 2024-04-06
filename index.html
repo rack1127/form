@@ -49,7 +49,7 @@
     }
     const parseJson = (form) => {
         var returnJson = {}
-        form.map((list) => returnJson[list.name] = Encoding.convert(list.value, 'SJIS'))
+        form.map((list) => returnJson[list.name] = Encoding.convert(list.value))
         return returnJson
     }
 </script>

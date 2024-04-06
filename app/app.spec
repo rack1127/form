@@ -5,7 +5,7 @@ a = Analysis(
     ['app.py'],
     pathex=[],
     binaries=[(r'C:\Users\setup\AppData\Roaming\Python\Python312\site-packages\pyzbar', '.')],
-    datas=[('read.mp3','.')],
+    datas=[('../read.mp3','.')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},

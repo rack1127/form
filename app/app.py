@@ -5,6 +5,7 @@ import csv
 import json
 import cv2
 from pyzbar.pyzbar import decode
+from ja_cvu_normalizer.ja_cvu_normalizer import JaCvuNormalizer
 
 def resource_path(relative_path):
     if hasattr(sys, '_MEIPASS'):
@@ -17,12 +18,13 @@ def play_mp3(filename):
     pygame.mixer.music.play()
 
 def to_csv(json_dict): 
-    json_dict= json.loads(json_dict)   
+    json_dict= json.loads(json_dict)
+    ja_cvu_normalizer = JaCvuNormalizer()
+    json_dict['yourname'] = ja_cvu_normalizer.normalize(json_dict['yourname'])
     with open('sensor_output.csv', 'a+',newline='') as f:
         writer = csv.DictWriter(f, fieldnames=json_dict.keys(), 
                                 doublequote=True, 
                                 quoting=csv.QUOTE_ALL)
-        print(writer)
         f.seek(0)
         if f.read() == "":    
             writer.writeheader()
@@ -44,7 +46,7 @@ def capture():
             if not data == []:
                 # QRコードのデータ(SJIS)をUTF-8に変換
                 value = data[0][0].decode('utf-8', 'ignore')
-                # print(value)
+                print(value)
 
                 # 値が空でなく、かつ、ひとつ前のデータ同じではないとき
                 if value != "" and value != tmp:
