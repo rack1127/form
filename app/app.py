@@ -19,15 +19,14 @@ def play_mp3(filename):
 
 def to_csv(json_dict): 
     json_dict= json.loads(json_dict)
-    ja_cvu_normalizer = JaCvuNormalizer()
-    json_dict['yourname'] = ja_cvu_normalizer.normalize(json_dict['yourname'])
-    with open('sensor_output.csv', 'a+',newline='') as f:
+    with open('sensor_output.csv', 'a+', newline='') as f:
         writer = csv.DictWriter(f, fieldnames=json_dict.keys(), 
                                 doublequote=True, 
                                 quoting=csv.QUOTE_ALL)
         f.seek(0)
         if f.read() == "":    
             writer.writeheader()
+        print (json_dict)
         writer.writerow(json_dict)
 
 def capture():
@@ -45,7 +44,8 @@ def capture():
             data = decode(frame)
             if not data == []:
                 # QRコードのデータ(SJIS)をUTF-8に変換
-                value = data[0][0].decode('utf-8', 'ignore')
+                print(data[0][0])
+                value = data[0][0]
                 print(value)
 
                 # 値が空でなく、かつ、ひとつ前のデータ同じではないとき
