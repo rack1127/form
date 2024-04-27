@@ -1,0 +1,4 @@
+sensor_output.csv
+debug.log
+app/build/*
+app/dist/*

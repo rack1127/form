@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
+    <title>情報登録フォーム</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.js"></script>
+    <script
+        src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+        crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/encoding-japanese/2.0.0/encoding.js" integrity="sha512-vaCo7tf//3zOfbhMkG2cwdcR4XGe8V6V9UEqLYaZ02WcW0QioesBenI0awCRCNVZqAo34uG3gUGxkOCoIjJYVQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WVCPHP37E0"></script>
+    <script src="https://unpkg.com/encoding-japanese@2.1.0/encoding.min.js"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-WVCPHP37E0');
+    </script>
+</head>
+
+<body>
+<form id="form">
+<h1>情報登録フォーム</h1>
+<label for syurui id = type>分類:</label>
+<select name = "syurui" id="syurui"  onchange="selectChange()">
+    <option value="" selected hidden>選択してください</option>
+    <option value="ippan">一般</option>
+    <option value="seito">生徒</option>
+    <option value="hogosya">生徒保護者</option>
+</select><br>
+<div id="seito" >
+    氏名：<input type="text" name="seito_yourname" id="name"><br>
+    学籍番号：<input type="tell"name="seito_schoolnumber"id="school"><br>
+    電話番号：<input type="tell" name="seito_phonenumber"id="phone"><br>
+    <button type="button" onclick="showMessage()"value="ボタン">作成</button>
+</div>
+<div id="ippan">
+    氏名：<input type="text" name="ippan_yourname"><br>
+    電話番号：<input type="tell"name="ippan_phonenumber"><br>
+    住んでいる地域：<input type="text" name="ippan_yourplace"><br>
+    <button type="button" onclick="showMessage()"value="ボタン">作成</button>
+</div>
+<div id = "hogosya">
+    氏名：<input type="text" name="hogosya_yourname"><br>
+    お子様の氏名：<input type="text" name="kids_yourname"><br>
+    お子様の学籍番号：<input type="tell"name="kids_schoolnumber"><br>
+    電話番号：<input type="tell" name="hogosya_yourname"><br>
+    <button type="button" onclick="showMessage()"value="ボタン">作成</button>
+</div>
+<p id="output-message"></p>
+<canvas id="qrcode"></canvas>
+<script language="javascript" type="text/javascript">
+    seito.style.display = 'none';
+    hogosya.style.display = 'none';
+    ippan.style.display = 'none';
+    function selectChange(){
+        const value = document.getElementById('syurui').value;
+        if(value === 'ippan'){
+            const seito = document.getElementById('seito');
+            const hogosya = document.getElementById('hogosya');
+            seito.style.display = 'none';
+            hogosya.style.display = 'none';
+            ippan.style.display = 'inline'
+        }
+        else if(value === 'seito'){
+            const ippan = document.getElementById('ippan');
+            const hogosya = document.getElementById('hogosya');
+            ippan.style.display = 'none';
+            hogosya.style.display = 'none';
+            seito.style.display = 'inline'
+        }
+        else if(value === 'hogosya'){
+            const ippan = document.getElementById('ippan');
+            const seito = document.getElementById('seito');
+            ippan.style.display = 'none';
+            seito.style.display = 'none';
+            hogosya.style.display = 'inline'
+        }
+    }
+    const showMessage = () => {
+        list = $('form').serializeArray();
+        list = JSON.stringify(parseJson(list))
+        console.log(list);
+        // const form = document.forms[0].elements;
+        var qr = new QRious({
+            element: document.getElementById("qrcode"),
+            value: list
+        });
+    }
+    const parseJson = (form) => {
+        var returnJson = {}
+        form.map((list) => returnJson[list.name] = Encoding.convert(list.value, "utf-8"))
+        let utf8Encode = new TextEncoder(); 
+        // 文字列をバイト配列にエンコードする
+        let byteArray = utf8Encode.encode(returnJson.yourname);
+        return returnJson
+    }
+</script>
+</body>
+</html>
