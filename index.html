@@ -52,6 +52,7 @@
 </div>
 <p id="output-message"></p>
 <canvas id="qrcode"></canvas>
+<button type="button" id="download" onclick="Downlord()">ダウンロード</button>
 <script language="javascript" type="text/javascript">
     seito.style.display = 'none';
     hogosya.style.display = 'none';
@@ -97,6 +98,9 @@
         // 文字列をバイト配列にエンコードする
         let byteArray = utf8Encode.encode(returnJson.yourname);
         return returnJson
+    }
+    const Downlord = () => {
+        console.log(('Test'));
     }
 </script>
 </body>
