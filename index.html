@@ -57,6 +57,7 @@
     seito.style.display = 'none';
     hogosya.style.display = 'none';
     ippan.style.display = 'none';
+    download.style.display = 'none';
     function selectChange(){
         const value = document.getElementById('syurui').value;
         if(value === 'ippan'){
@@ -82,6 +83,7 @@
         }
     }
     const showMessage = () => {
+        download.style.display = 'inline';
         list = $('form').serializeArray();
         list = JSON.stringify(parseJson(list))
         console.log(list);
@@ -100,7 +102,11 @@
         return returnJson
     }
     const Downlord = () => {
-        console.log(('Test'));
+        let canvas = document.getElementById("qrcode");
+        let link = document.createElement("a");
+        link.href = canvas.toDataURL("image/png");
+        link.download = "qrcode.png";
+        link.click();
     }
 </script>
 </body>
