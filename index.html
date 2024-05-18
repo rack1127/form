@@ -53,6 +53,7 @@
 <p id="output-message"></p>
 <canvas id="qrcode"></canvas>
 <button type="button" id="download" onclick="Downlord()">ダウンロード</button>
+<div><img id="newImg"></div>
 <script language="javascript" type="text/javascript">
     seito.style.display = 'none';
     hogosya.style.display = 'none';
@@ -102,11 +103,9 @@
         return returnJson
     }
     const Downlord = () => {
-        let canvas = document.getElementById("qrcode");
-        let link = document.createElement("a");
-        link.href = canvas.toDataURL("image/png");
-        link.download = "qrcode.png";
-        link.click();
+        cvs = document.getElementById("qrcode");
+        var png = cvs.toDataURL();
+        document.getElementById("newImg").src = png;
     }
 </script>
 </body>
