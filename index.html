@@ -51,14 +51,11 @@
     <button type="button" onclick="showMessage()"value="ボタン">作成</button>
 </div>
 <p id="output-message"></p>
-<canvas id="qrcode"></canvas>
-<button type="button" id="download" onclick="Downlord()">ダウンロード</button>
 <div><img id="newImg"></div>
 <script language="javascript" type="text/javascript">
     seito.style.display = 'none';
     hogosya.style.display = 'none';
     ippan.style.display = 'none';
-    download.style.display = 'none';
     function selectChange(){
         const value = document.getElementById('syurui').value;
         if(value === 'ippan'){
@@ -84,15 +81,11 @@
         }
     }
     const showMessage = () => {
-        download.style.display = 'inline';
         list = $('form').serializeArray();
         list = JSON.stringify(parseJson(list))
-        console.log(list);
-        // const form = document.forms[0].elements;
-        var qr = new QRious({
-            element: document.getElementById("qrcode"),
-            value: list
-        });
+        var qr = new QRious({value: list});
+        var png = qr.toDataURL();
+        document.getElementById("newImg").src = png;
     }
     const parseJson = (form) => {
         var returnJson = {}
@@ -101,11 +94,6 @@
         // 文字列をバイト配列にエンコードする
         let byteArray = utf8Encode.encode(returnJson.yourname);
         return returnJson
-    }
-    const Downlord = () => {
-        cvs = document.getElementById("qrcode");
-        var png = cvs.toDataURL();
-        document.getElementById("newImg").src = png;
     }
 </script>
 </body>
