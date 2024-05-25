@@ -19,7 +19,6 @@ def play_mp3(filename):
 
 def to_csv(json_dict): 
     json_dict= json.loads(json_dict)
-    print(json_dict)
     with open('sensor_output.csv', 'a+', newline='') as f:
         writer = csv.DictWriter(f, fieldnames=json_dict.keys(), 
                                 doublequote=True, 
@@ -40,7 +39,6 @@ def capture():
     cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
     cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1920) # カメラ画像の横幅を1280に設定
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 1080) 
-    # frame = cv2.imread('qrcode.png', cv2.IMREAD_UNCHANGED)
     tmp = ""
 
     while True:
@@ -50,10 +48,7 @@ def capture():
             # QRコードを認識
             data = decode(frame)
             if not data == []:
-                # QRコードのデータ(SJIS)をUTF-8に変換
-                # print(data[0][0])
                 value = data[0][0]
-                # print(value)
 
                 # 値が空でなく、かつ、ひとつ前のデータ同じではないとき
                 if value != "" and value != tmp:
@@ -73,7 +68,6 @@ def capture():
             break
 
     # 終了処理
-    # cap.release()
     cv2.destroyAllWindows()
 
 capture()
