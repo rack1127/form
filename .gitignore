@@ -1,5 +1,5 @@
 sensor_output.csv
 debug.log
-app/build/*
-app/dist/*
+app/exe/build/*
+app/exe/dist/*
 app/venv/*

@@ -1,21 +1,16 @@
 import os
 import sys
-import pygame
+from playsound import playsound
 import csv
 import json
 import cv2
 from pyzbar.pyzbar import decode
-from ja_cvu_normalizer.ja_cvu_normalizer import JaCvuNormalizer
 
 def resource_path(relative_path):
     if hasattr(sys, '_MEIPASS'):
         return os.path.join(sys._MEIPASS, relative_path)
     return os.path.join(os.path.abspath("."), relative_path)
 
-def play_mp3(filename):
-    pygame.mixer.init()
-    pygame.mixer.music.load(filename)
-    pygame.mixer.music.play()
 
 def to_csv(json_dict): 
     json_dict= json.loads(json_dict)
@@ -52,7 +47,7 @@ def capture():
 
                 # 値が空でなく、かつ、ひとつ前のデータ同じではないとき
                 if value != "" and value != tmp:
-                    play_mp3(resource_path("read.mp3"))
+                    playsound(resource_path("read.mp3"))
                     # データを一時保管
                     tmp = value
                     to_csv(value)
