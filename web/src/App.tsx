@@ -1,24 +1,25 @@
 import { useState } from 'react';
-import './App.css'
+import './App.css';
 
 function App() {
     const [value, setValue] = useState("");
     
     const change_display = () => {
-        if(value === 'ippan'){
+        console.log(value);
+        if(value === 'seito'){
             return (<div id="seito">
                 氏名：<input type="text" name="seito_yourname" id="name"/><br/>
                 学籍番号：<input type="tell"name="seito_schoolnumber"id="school"/><br/>
                 電話番号：<input type="tell" name="seito_phonenumber"id="phone"/><br/>
-                <button type="button" onClick={createQrcode} value="ボタン">作成</button>
+                <button type="submit" value="ボタン">作成</button>
             </div>);
         }
-        else if(value === 'seito'){
+        else if(value === 'ippan'){
             return (<div id="ippan">
                 氏名：<input type="text" name="ippan_yourname"/><br/>
                 電話番号：<input type="tell"name="ippan_phonenumber"/><br/>
                 住んでいる地域：<input type="text" name="ippan_yourplace"/><br/>
-                <button type="button" onClick={createQrcode} value="ボタン">作成</button>
+                <button type="submit" value="ボタン">作成</button>
             </div>);
         }
         else if(value === 'hogosya'){
@@ -38,9 +39,11 @@ function App() {
         setValue(value);
     };
 
-    const createQrcode = (formData) => {
-        formData.preventDefault();
-        console.log(formData);
+    const createQrcode: React.FormEventHandler = (event) => {
+        event.preventDefault();
+        const form = Object.fromEntries(new FormData(event.target as HTMLFormElement));
+        // const seito = form.get("seito_yourname")
+        console.log(form);
         
         // list = $('form').serializeArray();
         // list = JSON.stringify(parseJson(list))
@@ -63,7 +66,7 @@ function App() {
         <h1>情報登録フォーム</h1>
         <form onSubmit={createQrcode}>
             <label id = 'type'>分類:</label>
-            <select name = "syurui" id="syurui"  onChange={e => selectChange(e)}>
+            <select defaultValue={""} name = "syurui" id="syurui"  onChange={e => selectChange(e)}>
                 <option value="" selected hidden>選択してください</option>
                 <option value="ippan">一般</option>
                 <option value="seito">生徒</option>
