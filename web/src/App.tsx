@@ -1,11 +1,14 @@
 import { useState } from 'react';
 import './App.css';
+import QRCode from 'qrcode'
+
+
 
 function App() {
     const [value, setValue] = useState("");
+    const [qrcode, setQrcode] = useState("");
     
     const change_display = () => {
-        console.log(value);
         if(value === 'seito'){
             return (<div id="seito">
                 氏名：<input type="text" name="seito_yourname" id="name"/><br/>
@@ -39,27 +42,14 @@ function App() {
         setValue(value);
     };
 
-    const createQrcode: React.FormEventHandler = (event) => {
+    const createQrcode: React.FormEventHandler = async (event) => {
         event.preventDefault();
         const form = Object.fromEntries(new FormData(event.target as HTMLFormElement));
-        // const seito = form.get("seito_yourname")
-        console.log(form);
-        
-        // list = $('form').serializeArray();
-        // list = JSON.stringify(parseJson(list))
-        // var qr = new QRious({value: list});
-        // var png = qr.toDataURL();
-        // document.getElementById("newImg").src = png;
+        const json_form = JSON.stringify(form)
+        const qrcode =  QRCode.toDataURL(json_form, {type: "image/png"})
+        setQrcode(await qrcode)
     };
 
-    // const parseJson = (form) => {
-    //     var returnJson = {}
-    //     form.map((list) => returnJson[list.name] = Encoding.convert(list.value, "utf-8"))
-    //     let utf8Encode = new TextEncoder(); 
-    //     // 文字列をバイト配列にエンコードする
-    //     let byteArray = utf8Encode.encode(returnJson.yourname);
-    //     return returnJson
-    // }
 
     return (
         <>
@@ -73,9 +63,8 @@ function App() {
                 <option value="hogosya">生徒保護者</option>
             </select><br/>
             {change_display()}
+            <div><img src= {qrcode}/></div>
         </form>
-        <p id="output-message"></p>
-        <div><img id="newImg"/></div>
     </>
   )
 }
